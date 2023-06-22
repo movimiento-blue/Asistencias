@@ -34,6 +34,7 @@ const createServer = () => {
 };
 
 // ----------------- START CLUSTERS (this initializes NCORES servers)
+/*
 if (cluster.isPrimary) {
   console.log('Server in CLUSTER mode');
   console.log('----------------------');
@@ -50,3 +51,9 @@ if (cluster.isPrimary) {
     console.error(`Error starting worker ${cluster.worker.id}: ${error}`);
   }
 }
+*/
+
+// ----------------- SERVER FORK
+createServer().listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
