@@ -7,6 +7,8 @@ import path from 'path';
 // ----------------- Own modules import
 import { staticFiles, PORT, NCORES } from '../config/environment.js';
 import testRouter from '../routes/testRouter.js';
+import studentsRouter from '../routes/studentsRouter.js';
+//import attenddanceRouter from '../routes/attenddanceRouter.js';
 
 // ----------------- SERVER DECLARATIONS
 const createServer = () => {
@@ -19,6 +21,8 @@ const createServer = () => {
 
   // --------------- Routes
   app.use('/test', testRouter);
+  app.use('/students', studentsRouter);
+  //app.use('/attenddance', attenddanceRouter);
 
   // --------------- Not found route
   app.get('*', (req, res, next) => {
