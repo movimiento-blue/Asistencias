@@ -9,6 +9,7 @@ import { staticFiles, PORT, NCORES } from '../config/environment.js';
 import testRouter from '../routes/testRouter.js';
 import studentsRouter from '../routes/studentsRouter.js';
 //import attenddanceRouter from '../routes/attenddanceRouter.js';
+//comentario
 
 // ----------------- SERVER DECLARATIONS
 const createServer = () => {
