@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 const infoRouter = Router();
 
-infoRouter.get('/', async (_, res) => {
+infoRouter.get('/test', async (_, res) => {
   res.send('TEST2');
 });
 

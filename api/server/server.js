@@ -21,8 +21,8 @@ const createServer = () => {
   app.use(express.static(staticFiles));
 
   // --------------- Routes
-  app.use('/test', testRouter);
-  app.use('/students', studentsRouter);
+  app.use('/', testRouter);
+  app.use('/', studentsRouter);
   //app.use('/attenddance', attenddanceRouter);
 
   // --------------- Not found route

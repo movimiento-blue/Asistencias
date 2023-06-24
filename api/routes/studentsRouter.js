@@ -15,7 +15,7 @@ studentsRouter.get('/', async (_, res) => {
   }
 });
 
-studentsRouter.post('/', async (req, res) => {
+studentsRouter.post('/students', async (req, res) => {
   try {
     const result = await addStudentController(req.body);
     if (result === 1) {
