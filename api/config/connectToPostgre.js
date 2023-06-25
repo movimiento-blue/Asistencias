@@ -1,22 +1,23 @@
-import pkg from 'pg';
-const { Client } = pkg;
+import pkg from 'pg'
 
 import {
-  POSTGRESUSER,
-  POSTGRESHOST,
-  POSTGRESDB,
-  POSTGRESPASSWORD
-} from './environment.js';
+  postgresuser,
+  postgreshost,
+  postgresdb,
+  postgrespassword,
+  postgresport
+} from './environment.js'
+const { Client } = pkg
 
 export const client = new Client({
-  user: POSTGRESUSER,
-  host: POSTGRESHOST,
-  database: POSTGRESDB,
-  password: POSTGRESPASSWORD,
-  port: 5432
-});
+  user: postgresuser,
+  host: postgreshost,
+  database: postgresdb,
+  password: postgrespassword,
+  port: postgresport
+})
 
-let isConected;
+let isConected
 
 export const connectToDb = async () => {
   if (!isConected) {
@@ -24,12 +25,9 @@ export const connectToDb = async () => {
     await client
       .connect()
       .then(() => {
-        isConected = true;
-        console.log('PostgreDB Connected...');
+        isConected = true
+        console.log('PostgreDB Connected...')
       })
-      .catch((err) => console.error(`GrupoBlue PostgreDB ${err}`));
-    return;
+      .catch((err) => console.error(`GrupoBlue PostgreDB ${err}`))
   }
-
-  return;
-};
+}

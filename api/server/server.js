@@ -1,64 +1,66 @@
 // ----------------- Librarys import
-import express from 'express';
-import http from 'http';
-import cluster from 'cluster';
-import path from 'path';
+import express from 'express'
+import http from 'http'
+import cors from 'cors'
+import cluster from 'cluster'
+import path from 'path'
 
 // ----------------- Own modules import
-import { staticFiles, PORT, NCORES } from '../config/environment.js';
-import testRouter from '../routes/testRouter.js';
-import studentsRouter from '../routes/studentsRouter.js';
-//import attenddanceRouter from '../routes/attenddanceRouter.js';
-//comentario
+import { staticFiles, PORT, ncores } from '../config/environment.js'
+import testRouter from '../routes/testRouter.js'
+import studentsRouter from '../routes/studentsRouter.js'
+// import attenddanceRouter from '../routes/attenddanceRouter.js';
 
 // ----------------- SERVER DECLARATIONS
 const createServer = () => {
-  const app = express();
-  const server = http.createServer(app);
+  const app = express()
+  const server = http.createServer(app)
 
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
-  app.use(express.static(staticFiles));
+  app.use(cors())
+  app.use(express.json())
+  app.use(express.urlencoded({ extended: true }))
+  app.use(express.static(staticFiles))
 
   // --------------- Routes
-  app.use('/', testRouter);
-  app.use('/', studentsRouter);
-  //app.use('/attenddance', attenddanceRouter);
+  app.use('/', testRouter)
+  app.use('/', studentsRouter)
+  // app.use('/attenddance', attenddanceRouter);
 
   // --------------- Not found route
   app.get('*', (req, res, next) => {
-    const fileExtension = path.extname(req.url);
+    const fileExtension = path.extname(req.url)
     if (fileExtension === '.ico') {
-      next();
+      next()
     } else {
-      res.send(`Ruta: ${req.url}, método: ${req.method} no implementada`);
+      res.send(`Ruta: ${req.url}, método: ${req.method} no implementada`)
     }
-  });
+  })
 
-  return server;
-};
+  return server
+}
 
 // ----------------- START CLUSTERS (this initializes NCORES servers)
-/*
+
 if (cluster.isPrimary) {
-  console.log('Server in CLUSTER mode');
-  console.log('----------------------');
-  for (let i = 0; i < NCORES; i++) {
-    cluster.fork();
+  console.log('Server in CLUSTER mode')
+  console.log('----------------------')
+  for (let i = 0; i < ncores; i++) {
+    cluster.fork()
   }
 } else {
-  console.log(`Worker ${cluster.worker.id} started`);
+  console.log(`Worker ${cluster.worker.id} started`)
   try {
     createServer().listen(PORT, () => {
-      console.log(`Worker ${cluster.worker.id} listening on port ${PORT}`);
-    });
+      console.log(`Worker ${cluster.worker.id} listening on port ${PORT}`)
+    })
   } catch (error) {
-    console.error(`Error starting worker ${cluster.worker.id}: ${error}`);
+    console.error(`Error starting worker ${cluster.worker.id}: ${error}`)
   }
 }
-*/
 
 // ----------------- SERVER FORK
+/*
 createServer().listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
+*/
