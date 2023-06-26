@@ -17,17 +17,16 @@ class PostgreStudentHelper {
     try {
       await connectToDb()
       const query =
-        'INSERT INTO estudiantes (nombre, apellido, grupo, estado, telefono) VALUES ($1, $2, $3, $4, $5)'
+        'INSERT INTO estudiantes (nombre, apellido, activo, telefono_contacto) VALUES ($1, $2, $3, $4)'
       const result = await client.query(query, [
         student.nombre,
         student.apellido,
-        student.grupo,
-        student.estado,
+        true,
         student.telefono
       ])
       return result
     } catch (error) {
-      console.error('Error al obtener los estudiantes:', error)
+      console.error('Error al agregar el estudiante:', error)
     }
   }
 }

@@ -1,10 +1,10 @@
-import { client } from '../config/connectToPostgre.js';
+import { client } from '../config/connectToPostgre.js'
 
 const createTableGrupos = `
 CREATE TABLE IF NOT EXISTS grupos (
   id SERIAL PRIMARY KEY,
   descripcion VARCHAR(45)
-)`;
+)`
 
 const createTableEstudiantes = `
 CREATE TABLE IF NOT EXISTS estudiantes (
@@ -13,13 +13,13 @@ CREATE TABLE IF NOT EXISTS estudiantes (
   apellido VARCHAR(45) NOT NULL,
   activo BOOLEAN NOT NULL,
   telefono_contacto VARCHAR(45),
-  grupos_id INTEGER NOT NULL,
+  grupo_id INTEGER NULL,
   CONSTRAINT fk_estudiantes_grupos1
-    FOREIGN KEY (grupos_id)
+    FOREIGN KEY (grupo_id)
     REFERENCES grupos (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
-)`;
+)`
 
 const createTableInaisistencias = `
 CREATE TABLE IF NOT EXISTS inaisistencias (
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS inaisistencias (
     REFERENCES estudiantes (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
-)`;
+)`
 
 const createTableUsuarios = `
 CREATE TABLE IF NOT EXISTS usuarios (
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
   apellido VARCHAR(45),
   clave VARCHAR(45),
   rol VARCHAR(45)
-)`;
+)`
 
 const createTableAsistencias = `
 CREATE TABLE IF NOT EXISTS asistencias (
@@ -56,33 +56,33 @@ CREATE TABLE IF NOT EXISTS asistencias (
     REFERENCES estudiantes (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
-)`;
+)`
 
-async function createTable() {
+async function createTable () {
   try {
-    await client.connect();
-    console.log('Conexión exitosa a la base de datos');
+    await client.connect()
+    console.log('Conexión exitosa a la base de datos')
 
-    await client.query(createTableGrupos);
-    console.log('Tabla grupos creada exitosamente');
+    await client.query(createTableGrupos)
+    console.log('Tabla grupos creada exitosamente')
 
-    await client.query(createTableEstudiantes);
-    console.log('Tabla estudiantes creada exitosamente');
+    await client.query(createTableEstudiantes)
+    console.log('Tabla estudiantes creada exitosamente')
 
-    await client.query(createTableInaisistencias);
-    console.log('Tabla inaisistencias creada exitosamente');
+    await client.query(createTableInaisistencias)
+    console.log('Tabla inaisistencias creada exitosamente')
 
-    await client.query(createTableUsuarios);
-    console.log('Tabla usuarios creada exitosamente');
+    await client.query(createTableUsuarios)
+    console.log('Tabla usuarios creada exitosamente')
 
-    await client.query(createTableAsistencias);
-    console.log('Tabla asistencias creada exitosamente');
+    await client.query(createTableAsistencias)
+    console.log('Tabla asistencias creada exitosamente')
 
-    await client.end();
-    console.log('Conexión cerrada');
+    await client.end()
+    console.log('Conexión cerrada')
   } catch (error) {
-    console.error('Error al crear la tabla:', error);
+    console.error('Error al crear la tabla:', error)
   }
 }
 
-createTable();
+createTable()
