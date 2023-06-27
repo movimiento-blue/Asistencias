@@ -3,7 +3,7 @@ import { client } from '../config/connectToPostgre.js'
 const createTableGrupos = `
 CREATE TABLE IF NOT EXISTS grupos (
   id SERIAL PRIMARY KEY,
-  descripcion VARCHAR(45)
+  descripcion VARCHAR(45) NOT NULL
 )`
 
 const createTableEstudiantes = `
@@ -24,10 +24,9 @@ CREATE TABLE IF NOT EXISTS estudiantes (
 const createTableInaisistencias = `
 CREATE TABLE IF NOT EXISTS inaisistencias (
   id SERIAL PRIMARY KEY,
-  fecha DATE,
-  estado VARCHAR(45),
+  fecha TIMESTAMP NOT NULL,
+  estado VARCHAR(45) NOT NULL,
   estudiante_id INTEGER NOT NULL,
-  hora TIMESTAMP,
   CONSTRAINT fk_aisistencias_estudiantes1
     FOREIGN KEY (estudiante_id)
     REFERENCES estudiantes (id)
@@ -37,22 +36,20 @@ CREATE TABLE IF NOT EXISTS inaisistencias (
 
 const createTableUsuarios = `
 CREATE TABLE IF NOT EXISTS usuarios (
-  idusuarios SERIAL PRIMARY KEY,
-  nombre VARCHAR(45),
-  apellido VARCHAR(45),
-  clave VARCHAR(45),
+  id SERIAL PRIMARY KEY,
+  nombre VARCHAR(45) NOT NULL,
+  apellido VARCHAR(45) NOT NULL,
+  clave VARCHAR(45) NOT NULL,
   rol VARCHAR(45)
 )`
 
 const createTableAsistencias = `
 CREATE TABLE IF NOT EXISTS asistencias (
+  id SERIAL PRIMARY KEY,
   fecha TIMESTAMP NOT NULL,
-  id SERIAL NOT NULL,
-  estudiantes_id INTEGER NOT NULL,
-  PRIMARY KEY (id, estudiantes_id),
-  UNIQUE (id),
+  estudiante_id INTEGER NOT NULL,
   CONSTRAINT fk_temp_asistencias_estudiantes1
-    FOREIGN KEY (estudiantes_id)
+    FOREIGN KEY (estudiante_id)
     REFERENCES estudiantes (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION

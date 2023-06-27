@@ -5,7 +5,7 @@ async function dropTable (tableName) {
     await client.connect()
     console.log('Conexión exitosa a la base de datos')
 
-    const dropTableQuery = `DROP TABLE IF EXISTS ${tableName}`
+    const dropTableQuery = `DROP TABLE IF EXISTS ${tableName} CASCADE`
 
     await client.query(dropTableQuery)
     console.log(`Tabla ${tableName} eliminada exitosamente`)
@@ -17,5 +17,26 @@ async function dropTable (tableName) {
   }
 }
 
+async function getTables () {
+  try {
+    const getTablesQuery = `
+      SELECT table_name
+      FROM information_schema.tables
+      WHERE table_schema = 'public'
+    `
+
+    const result = await client.query(getTablesQuery)
+
+    console.log('Tablas existentes en la base de datos:')
+    result.rows.forEach((row) => {
+      console.log(row.table_name)
+    })
+  } catch (error) {
+    console.error('Error al obtener las tablas:', error)
+  }
+}
+
 // dropTable('asistencias')
-dropTable('estudiantes')
+dropTable('inaisistencias')
+
+getTables()
