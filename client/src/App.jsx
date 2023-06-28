@@ -7,6 +7,8 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0)
 
+//comentario 3: por definir variables de estado
+
   return (
     <>
       <div>
