@@ -16,7 +16,7 @@ class PostgreStudentHelper {
     }
   }
 
-  async add (student) {
+  async add (student) { // Falta ver el caso en que se recibe la informacion de grupo_id
     try {
       await connectToDb()
       const query =

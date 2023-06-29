@@ -3,19 +3,16 @@ import { validateStudentData } from './validationFunctions.js'
 
 export const getStudentsController = async (req) => {
   try {
+    let estudiantes
     if (req.id) {
-      const estudiantes = await postgreStudentHelper.getAll({ key: 'id', value: req.id })
-      return estudiantes
+      estudiantes = await postgreStudentHelper.getAll({ key: 'id', value: req.id })
+    } else if (req.apellido) {
+      estudiantes = await postgreStudentHelper.getAll({ key: 'apellido', value: req.apellido })
+    } else if (req.grupo_id) {
+      estudiantes = await postgreStudentHelper.getAll({ key: 'grupo_id', value: req.grupo_id })
+    } else {
+      estudiantes = await postgreStudentHelper.getAll({})
     }
-    if (req.apellido) {
-      const estudiantes = await postgreStudentHelper.getAll({ key: 'apellido', value: req.apellido })
-      return estudiantes
-    }
-    if (req.grupo_id) {
-      const estudiantes = await postgreStudentHelper.getAll({ key: 'grupo_id', value: req.grupo_id })
-      return estudiantes
-    }
-    const estudiantes = await postgreStudentHelper.getAll({})
     return estudiantes
   } catch (error) {
     console.error('Error al obtener los estudiantes:', error)

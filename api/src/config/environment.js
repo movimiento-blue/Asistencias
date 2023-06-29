@@ -1,8 +1,14 @@
 import dotenv from 'dotenv'
+import minimist from 'minimist'
+
 dotenv.config()
+const parseArgs = minimist(process.argv.slice(2))
+
+export const config = {
+  port: parseArgs.p // puerto escucha
+}
 
 export const staticFiles = process.env.STATICFILES
-export const PORT = process.env.PORT
 export const ncores = process.env.NCORES
 
 export const postgresuser = process.env.POSTGRESUSER
