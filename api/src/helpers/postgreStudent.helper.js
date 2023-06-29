@@ -6,7 +6,7 @@ class PostgreStudentHelper {
       await connectToDb()
       let query = 'SELECT * FROM estudiantes WHERE activo = true'
       if (req.key) {
-        query += ` AND ${req.key} = '${req.value}'`
+        query += ` AND LOWER(${req.key}) ILIKE LOWER('${req.value}%')`
       }
       const result = await client.query(query)
       const estudiantes = result.rows

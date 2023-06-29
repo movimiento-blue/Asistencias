@@ -11,7 +11,8 @@ const studentsRouter = Router()
 // GET students body {id:.., apellido:.., grupo_id:...}
 studentsRouter.get('/students', async (req, res) => {
   try {
-    const students = await getStudentsController(req.body)
+    const { id, apellido, grupo_id } = req.query
+    const students = await getStudentsController({ id, apellido, grupo_id })
     if (students.length > 0) {
       return res.status(200).json(students)
     }
