@@ -1,4 +1,4 @@
-import { client } from '../config/connectToPostgre.js'
+import { client } from '../../config/connectToPostgre.js'
 
 async function dropTable (tableName) {
   try {

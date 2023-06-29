@@ -6,7 +6,7 @@ class PostgreStudentHelper {
       await connectToDb()
       let query = 'SELECT * FROM estudiantes WHERE activo = true'
       if (req.key) {
-        query += ` AND ${req.key} = '${req.value}'`
+        query += ` AND LOWER(${req.key}) ILIKE LOWER('${req.value}%')`
       }
       const result = await client.query(query)
       const estudiantes = result.rows
@@ -16,7 +16,7 @@ class PostgreStudentHelper {
     }
   }
 
-  async add (student) {
+  async add (student) { // Falta ver el caso en que se recibe la informacion de grupo_id
     try {
       await connectToDb()
       const query =

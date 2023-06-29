@@ -6,10 +6,12 @@ import cluster from 'cluster'
 import path from 'path'
 
 // ----------------- Own modules import
-import { staticFiles, PORT, ncores } from '../config/environment.js'
+import { config, staticFiles, ncores } from '../config/environment.js'
 import testRouter from '../routes/testRouter.js'
 import studentsRouter from '../routes/studentsRouter.js'
 // import attenddanceRouter from '../routes/attenddanceRouter.js';
+
+const PORT = (config.port) ? config.port : 8080
 
 // ----------------- SERVER DECLARATIONS
 const createServer = () => {
@@ -50,7 +52,19 @@ if (cluster.isPrimary) {
 } else {
   console.log(`Worker ${cluster.worker.id} started`)
   try {
-    createServer().listen(PORT, () => {
+    const server = createServer()
+    server.on('error', (error) => {
+      if (error.code === 'EADDRINUSE') {
+        console.error(`ERROR ${cluster.worker.id} - Puerto en uso: ${error.address}:${error.port}`)
+        console.log('Inicie el servidor en otro puerto utilizando el comando: node src/server/server -p <puerto>')
+        console.log('Ejemplo: node src/server/server -p 3000')
+        process.exit(1)
+      } else {
+        console.error(error)
+        throw error
+      }
+    })
+    server.listen(PORT, () => {
       console.log(`Worker ${cluster.worker.id} listening on port ${PORT}`)
     })
   } catch (error) {
