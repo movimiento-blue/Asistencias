@@ -4,9 +4,11 @@ import http from 'http'
 import cors from 'cors'
 import cluster from 'cluster'
 import path from 'path'
+import cron from 'node-cron'
 
 // ----------------- Own modules import
 import { config, staticFiles, ncores } from '../config/environment.js'
+import { abscenceSave } from '../services/absenceSave.js'
 import testRouter from '../routes/testRouter.js'
 import studentsRouter from '../routes/studentsRouter.js'
 // import attenddanceRouter from '../routes/attenddanceRouter.js';
@@ -46,6 +48,12 @@ const createServer = () => {
 if (cluster.isPrimary) {
   console.log('Server in CLUSTER mode')
   console.log('----------------------')
+
+  // ----------------- Scheluded tasks at 12:00 AM
+  cron.schedule('0 0 * * *', () => {
+    abscenceSave()
+  })
+
   for (let i = 0; i < ncores; i++) {
     cluster.fork()
   }

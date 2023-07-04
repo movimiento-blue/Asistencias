@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS estudiantes (
     ON UPDATE NO ACTION
 )`
 
-const createTableInaisistencias = `
+const createTableInasistencias = `
 CREATE TABLE IF NOT EXISTS inaisistencias (
   id SERIAL PRIMARY KEY,
   fecha TIMESTAMP NOT NULL,
@@ -66,7 +66,7 @@ async function createTable () {
     await client.query(createTableEstudiantes)
     console.log('Tabla estudiantes creada exitosamente')
 
-    await client.query(createTableInaisistencias)
+    await client.query(createTableInasistencias)
     console.log('Tabla inaisistencias creada exitosamente')
 
     await client.query(createTableUsuarios)
