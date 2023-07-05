@@ -11,7 +11,7 @@ import { config, staticFiles, ncores } from '../config/environment.js'
 import { abscenceSave } from '../services/absenceSave.js'
 import testRouter from '../routes/testRouter.js'
 import studentsRouter from '../routes/studentsRouter.js'
-// import attenddanceRouter from '../routes/attenddanceRouter.js';
+import attendanceRouter from '../routes/attendanceRouter.js'
 
 const PORT = (config.port) ? config.port : 8080
 
@@ -28,7 +28,7 @@ const createServer = () => {
   // --------------- Routes
   app.use('/', testRouter)
   app.use('/', studentsRouter)
-  // app.use('/attenddance', attenddanceRouter);
+  app.use('/', attendanceRouter)
 
   // --------------- Not found route
   app.get('*', (req, res, next) => {
@@ -50,7 +50,7 @@ if (cluster.isPrimary) {
   console.log('----------------------')
 
   // ----------------- Scheluded tasks at 12:00 AM
-  cron.schedule('0 0 * * *', () => {
+  cron.schedule('10 13 * * *', () => {
     abscenceSave()
   })
 
