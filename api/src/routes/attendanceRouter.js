@@ -2,7 +2,8 @@ import { Router } from 'express'
 
 import {
   addAttendanceController,
-  deleteAttendanceController
+  deleteAttendanceController,
+  updateAttendanceController
 } from '../controllers/attendanceController.js'
 
 const attendanceRouter = Router()
@@ -26,11 +27,23 @@ attendanceRouter.post('/attendance', async (req, res) => {
 // DELETE attendance query {id:..} // Elimina asistencia registrada previamente
 attendanceRouter.delete('/attendance', async (req, res) => {
   try {
-    const result = await deleteAttendanceController(req.query)
+    const result = await deleteAttendanceController(req.query.id)
     if (result === 1) {
       return res.status(200).json({ msg: 'Asistencia eliminada.' })
     }
     return res.status(400).json({ msg: 'Asistencia no eliminada.' })
+  } catch (error) {
+    return res.status(500).json(error)
+  }
+})
+
+attendanceRouter.put('/attendance', async (req, res) => {
+  try {
+    const result = await updateAttendanceController(req.body)
+    if (result === 1) {
+      return res.status(200).json({ msg: 'Asistencia actualizada.' })
+    }
+    return res.status(400).json({ msg: 'Asistencia no actualizada.' })
   } catch (error) {
     return res.status(500).json(error)
   }

@@ -52,6 +52,17 @@ class PostgreStudentHelper {
     }
   }
 
+  async isActive (studentId) {
+    try {
+      await connectToDb()
+      const query = 'SELECT activo FROM estudiantes WHERE id = $1'
+      const result = await client.query(query, [studentId])
+      return result.rows[0].activo
+    } catch (error) {
+      console.error('Error al activar el estudiante:', error)
+    }
+  }
+
   async delete (studentId) {
     try {
       await connectToDb()
@@ -60,6 +71,17 @@ class PostgreStudentHelper {
       return result
     } catch (error) {
       console.error('Error al eliminar el estudiante:', error)
+    }
+  }
+
+  async undelete (studentId) {
+    try {
+      await connectToDb()
+      const query = 'UPDATE estudiantes SET activo = true WHERE id = $1'
+      const result = await client.query(query, [studentId])
+      return result
+    } catch (error) {
+      console.error('Error al restaurar el estudiante:', error)
     }
   }
 }

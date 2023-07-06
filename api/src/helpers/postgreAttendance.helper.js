@@ -21,18 +21,40 @@ class PostgreAttendanceHelper {
         return 2
       }
     } catch (error) {
-      console.error('Error al agregar el estudiante:', error)
+      console.error('Error al crear el registro de asistencia:', error)
     }
   }
 
-  async delete (id) {
+  async delete (asistenciaId) {
     try {
       await connectToDb()
       const query = 'DELETE FROM asistencias WHERE id = $1'
-      const result = await client.query(query, [id])
+      const result = await client.query(query, [asistenciaId])
       return result.rowCount
     } catch (error) {
-      console.error('Error al eliminar el estudiante:', error)
+      console.error('Error al eliminar el registro de asistencia:', error)
+    }
+  }
+
+  async deleteInasistencia (inasistenciaId) {
+    try {
+      await connectToDb()
+      const query = 'DELETE FROM inasistencias WHERE id = $1'
+      const result = await client.query(query, [inasistenciaId])
+      return result.rowCount
+    } catch (error) {
+      console.error('Error al eliminar el registro de inasistencia:', error)
+    }
+  }
+
+  async modify (data) {
+    try {
+      await connectToDb()
+      const query = 'UPDATE inasistencias SET estado = $1 WHERE id = $2'
+      const result = await client.query(query, [data.estado, data.inasistenciaId])
+      return result.rowCount
+    } catch (error) {
+      console.error('Error al modificar el registro de asistencia:', error)
     }
   }
 }

@@ -6,7 +6,7 @@ export const abscenceSave = async () => {
     await connectToDb()
 
     // Obtener todas las fechas con registros de asistencia
-    const datesQuery = 'SELECT DISTINCT fecha::date FROM asistencias'
+    const datesQuery = 'SELECT DISTINCT fecha::date FROM asistencias WHERE registrada = false'
     const datesResult = await client.query(datesQuery)
     const dates = datesResult.rows
 
@@ -47,12 +47,12 @@ export const abscenceSave = async () => {
         }
       }
 
-      // Borrar registros de assitencias del dia actual
-      const deleteQuery = 'DELETE FROM asistencias WHERE fecha::date = $1'
-      await client.query(deleteQuery, [attendanceDate])
+      // Registrar asistencias
+      const updateQuery = 'UPDATE asistencias SET registrada = true WHERE fecha::date = $1'
+      await client.query(updateQuery, [attendanceDate])
     }
 
-    console.log('Registros de inasistencias creados y registros de asistencias eliminados exitosamente.')
+    console.log('Registros de inasistencias creados exitosamente.')
   } catch (error) {
     console.error('Error al crear registros de inasistencias:', error)
   }
