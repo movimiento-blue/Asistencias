@@ -13,8 +13,9 @@ const attendanceRouter = Router()
 // POST attendance query {id:..} // Se registra asistencia
 attendanceRouter.post(
   '/attendance',
-  passport.authenticate('jwt', { session: false }),
+  // passport.authenticate('jwt', { session: false }),
   async (req, res) => {
+    console.log(req.query)
     try {
       const result = await addAttendanceController(req.query.id)
       if (result === 1) {
