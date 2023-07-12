@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS asistencias (
   id SERIAL PRIMARY KEY,
   fecha TIMESTAMP NOT NULL,
   estudiante_id INTEGER NOT NULL,
+  registrada BOOLEAN NOT NULL DEFAULT false,
   CONSTRAINT fk_temp_asistencias_estudiantes1
     FOREIGN KEY (estudiante_id)
     REFERENCES estudiantes (id)
