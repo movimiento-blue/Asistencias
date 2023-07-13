@@ -6,7 +6,11 @@ class PostgreStudentHelper {
       await connectToDb()
       let query = 'SELECT * FROM estudiantes WHERE activo = true'
       if (req.key) {
-        query += ` AND LOWER(${req.key}) ILIKE LOWER('${req.value}%')`
+        if (req.key === 'apellido') {
+          query += ` AND LOWER(${req.key}) ILIKE LOWER('%${req.value}%')`
+        } else {
+          query += ` AND ${req.key} = ${req.value}`
+        }
       }
       const result = await client.query(query)
       const estudiantes = result.rows
@@ -36,7 +40,6 @@ class PostgreStudentHelper {
   async modify (student) {
     try {
       await connectToDb()
-      console.log(student)
       const query =
         'UPDATE estudiantes SET nombre = $1, apellido = $2, grupo_id = $3, telefono_contacto = $4 WHERE id = $5'
       const result = await client.query(query, [
