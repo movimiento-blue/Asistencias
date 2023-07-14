@@ -1,7 +1,7 @@
 import { Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import HomeIcon from "../../../assets/icons/iconohome.png";
+import HomeIcon from "../../../assets/icons/iconoqr.png";
 import LoginIcon from "../../../assets/icons/iconoperfil.png";
 
 import HomeNavigator from "../home";
@@ -30,7 +30,7 @@ const BottomTabNavigator = () => {
         name="HomeTab"
         component={HomeNavigator}
         options={{
-          tabBarLabel: "Inicio",
+          tabBarLabel: "QR Scan",
           tabBarIcon: ({ focused, color, size }) => (
             <Image source={HomeIcon} size={size} color={focused ? color : COLORS.darkGray} />
           ),

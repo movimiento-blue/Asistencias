@@ -54,7 +54,7 @@ if (cluster.isPrimary) {
   console.log('----------------------')
 
   // ----------------- Scheluded tasks at 12:00 AM
-  cron.schedule('34 10 * * *', () => {
+  cron.schedule('47 9 * * *', () => {
     abscenceSave()
   })
 

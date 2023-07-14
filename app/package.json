@@ -16,6 +16,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "bcryptjs": "^2.4.3",
     "expo": "^48.0.19",
+    "expo-av": "~13.2.1",
     "expo-barcode-scanner": "^12.5.3",
     "expo-camera": "~13.2.1",
     "expo-dev-client": "^2.2.1",
