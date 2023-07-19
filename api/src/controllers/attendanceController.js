@@ -19,7 +19,7 @@ export const addAttendanceController = async (estudianteId) => {
 export const deleteAttendanceController = async (estudianteId) => {
   try {
     const result = await postgreAttendanceHelper.delete(estudianteId)
-    return result.rowCount
+    return result
   } catch (error) {
     console.error('Error al eliminar el estudiante:', error)
   }

@@ -67,7 +67,6 @@ attendanceRouter.put(
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
     try {
-      console.log(req.body)
       const result = await updateAttendanceController(req.body)
       if (result === 1) {
         return res.status(200).json({ msg: 'Asistencia actualizada.' })

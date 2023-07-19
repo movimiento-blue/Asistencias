@@ -12,11 +12,11 @@ const API_URL = 'http://192.168.1.14:8080/attendance';
 
 const loadSound = async (soundFile) => {
   try {
-    const soundObject = new Audio.Sound();
-    await soundObject.loadAsync(soundFile);
-    return soundObject;
+    const sound = new Audio.Sound();
+    await sound.loadAsync(soundFile);
+    return sound;
   } catch (error) {
-    console.error('Error al cargar el sonido:', error);
+    console.error('Error loading sound:', error);
     return null;
   }
 };

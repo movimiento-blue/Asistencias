@@ -25,11 +25,11 @@ class PostgreAttendanceHelper {
     }
   }
 
-  async delete (asistenciaId) {
+  async delete (estudianteId) {
     try {
       await connectToDb()
-      const query = 'DELETE FROM asistencias WHERE id = $1'
-      const result = await client.query(query, [asistenciaId])
+      const query = 'DELETE FROM asistencias WHERE estudiante_id = $1 AND fecha::date = CURRENT_DATE'
+      const result = await client.query(query, [estudianteId])
       return result.rowCount
     } catch (error) {
       console.error('Error al eliminar el registro de asistencia:', error)

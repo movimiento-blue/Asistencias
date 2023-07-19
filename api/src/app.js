@@ -5,14 +5,15 @@ import cors from 'cors'
 import cluster from 'cluster'
 import path from 'path'
 import cron from 'node-cron'
+import { useTreblle } from 'treblle'
 
 // ----------------- Own modules import
-import { config, staticFiles, ncores } from '../config/environment.js'
-import { abscenceSave } from '../services/absenceSave.js'
-import studentsRouter from '../routes/studentsRouter.js'
-import attendanceRouter from '../routes/attendanceRouter.js'
+import { config, staticFiles, ncores, treblleApiKey, treblleProjectId } from './config/environment.js'
+import { abscenceSave } from './services/absenceSave.js'
+import studentsRouter from './routes/studentsRouter.js'
+import attendanceRouter from './routes/attendanceRouter.js'
 
-import { generateJwtToken } from '../middlewares/auth.js'
+import { generateJwtToken } from './middlewares/auth.js'
 
 const PORT = (config.port) ? config.port : 8080
 
@@ -24,11 +25,17 @@ const createServer = () => {
   app.use(cors())
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
-  app.use(express.static(staticFiles))
+  app.use('/api/doc', express.static(staticFiles))
+
+  // --------------- Treblle Create API DOC
+  useTreblle(app, {
+    apiKey: treblleApiKey,
+    projectId: treblleProjectId
+  })
 
   // --------------- Routes
-  app.use('/', studentsRouter)
-  app.use('/', attendanceRouter)
+  app.use('/api', studentsRouter)
+  app.use('/api', attendanceRouter)
 
   // --------------- Not found route
   app.get('*', (req, res, next) => {
