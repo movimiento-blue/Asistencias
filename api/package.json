@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Control asistencia colegio",
-  "main": "src/server/server.js",
+  "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ."
@@ -20,7 +20,8 @@
     "node-cron": "^3.0.2",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
-    "pg": "^8.11.0"
+    "pg": "^8.11.0",
+    "treblle": "^1.3.0"
   },
   "devDependencies": {
     "eslint": "^8.43.0",

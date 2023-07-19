@@ -16,3 +16,6 @@ export const postgreshost = process.env.POSTGRESHOST
 export const postgresdb = process.env.POSTGRESDB
 export const postgrespassword = process.env.POSTGRESPASSWORD
 export const postgresport = process.env.POSTGRESPORT
+
+export const treblleApiKey = process.env.TREBLLEAPIKEY
+export const treblleProjectId = process.env.TREBLLEPROJECTID
