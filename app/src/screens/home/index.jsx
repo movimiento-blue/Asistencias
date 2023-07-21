@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, Image } from "react-native";
 
+import Logo from "../../../assets/logo.png";
 
 import { Head, QRScanner } from "../../components";
 import { COLORS } from "../../constants";
@@ -9,13 +10,15 @@ import { styles } from "./styles";
 
 const Home = ({ navigation }) => {
 
-
   return (
-    <View>
-      <Head />
-      <View style={styles.container}>
-        <Text>Bienvenido</Text>
-        <QRScanner />
+    <View style={styles.container}>
+      <View style={styles.containerLogo}>
+        <Image source={Logo} style={styles.logo} />
+      </View>
+      <View style={styles.containerQR}>
+        <View style={styles.qr}>
+          <QRScanner />
+        </View>
       </View>
     </View>
   );
