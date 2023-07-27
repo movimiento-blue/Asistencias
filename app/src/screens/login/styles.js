@@ -3,10 +3,28 @@ import { COLORS } from "../../constants/index";
 
 export const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 20,
-    paddingVertical: 20,
+  },
+  containerLogo: {
+    paddingTop: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    height: 300
+  },
+  logo:{
+    width: 150,
+    height: 150
+  },
+  containerLogin: {
+    flex: 1,
+    width: "100%",
+    borderTopLeftRadius: 100,
+    borderBottomRightRadius: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: COLORS.primary
   },
   title: {
     fontFamily: "Rubik-Bold",

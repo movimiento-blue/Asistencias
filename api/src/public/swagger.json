@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Asistencias",
-    "description": "Para las rutas que no son GET es necesario inculuir en el 'headers' de las peticiones, la clave 'Authorization': 'Bearer JWT'. El JWT es generado por el servidor y mostrado en la consola.",
+    "description": "Para las rutas que no son GET es necesario inculuir en el 'headers' de las peticiones la clave 'Authorization': 'Bearer JWT'. El JWT es generado por el servidor y mostrado en la consola.",
     "version": "1.0.0"
   },
   "servers": [
