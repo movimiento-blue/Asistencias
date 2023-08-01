@@ -2,6 +2,8 @@ import passport from 'passport'
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
 import jwt from 'jsonwebtoken'
 
+import { postgreUserHelper } from '../helpers/postgreUsers.helper.js'
+
 const jwtsecretkey = 'llavesecreta'
 
 passport.use(
@@ -13,8 +15,12 @@ passport.use(
     },
     async (payload, done) => {
       try {
-        const user = 'username' // await getUserController(payload.username)
-        return done(null, user !== null ? user : false)
+        const response = await postgreUserHelper.getByUsername(payload.username)
+        if (response.length > 0) {
+          // en req.user puedo obtener el username luego de este middleware
+          return done(null, response[0].username)
+        }
+        return done(null, false)
       } catch (error) {
         return done(error, false)
       }

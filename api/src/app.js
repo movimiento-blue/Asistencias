@@ -12,8 +12,7 @@ import { config, staticFiles, ncores, treblleApiKey, treblleProjectId } from './
 import { abscenceSave } from './services/absenceSave.js'
 import studentsRouter from './routes/studentsRouter.js'
 import attendanceRouter from './routes/attendanceRouter.js'
-
-import { generateJwtToken } from './middlewares/auth.js'
+import usersRouter from './routes/usersRouter.js'
 
 const PORT = (config.port) ? config.port : 8080
 
@@ -25,7 +24,6 @@ const createServer = () => {
   app.use(cors())
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
-  app.use('/api/doc', express.static(staticFiles))
 
   // --------------- Treblle Create API DOC
   useTreblle(app, {
@@ -36,6 +34,8 @@ const createServer = () => {
   // --------------- Routes
   app.use('/api', studentsRouter)
   app.use('/api', attendanceRouter)
+  app.use('/api', usersRouter)
+  app.use('/api/doc', express.static(staticFiles))
 
   // --------------- Not found route
   app.get('*', (req, res, next) => {
@@ -53,10 +53,6 @@ const createServer = () => {
 // ----------------- START CLUSTERS (this initializes NCORES servers)
 
 if (cluster.isPrimary) {
-// -------------- generate JWT token para desarrollo
-  console.log('JWT para desarrollo: ', generateJwtToken('username'))
-  console.log('Incluir en el Bearer          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
-
   console.log('Server in CLUSTER mode')
   console.log('----------------------')
 

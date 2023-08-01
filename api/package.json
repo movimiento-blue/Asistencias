@@ -11,6 +11,7 @@
   "author": "Blue",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cluster": "^0.7.7",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
