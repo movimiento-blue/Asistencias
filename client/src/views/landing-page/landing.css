@@ -1,0 +1,64 @@
+.fullFormContainer {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #44a5a0; */
+  background: -webkit-linear-gradient(135deg, #4AFFE1, #02A186, #4AFFE1, #02A186);
+}
+
+.imageAndFormContainer {
+  display: flex;
+  align-items: center;
+  height: 500px;
+  justify-content: center;
+  width: 750px;
+  background: #fff;
+  border-radius: 10px;
+  /* padding: 35px 35px 0px 35px; */
+  padding: 25px;
+  box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.half {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  
+}
+
+.logo {
+  width: 300px;
+  padding-bottom: 18px;
+  padding-right: 35px;
+}
+
+.hrFullForm {
+  border: 2px solid #0EEDC8;
+  height: 100%;
+}
+
+.formAndH1container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding-left: 30px;
+}
+
+.h1FullForm {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 30px 0px 15px 0px;
+  color: #333333;
+  padding-top: 20px;
+}
+
+.h4FullForm {
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333333;
+}
