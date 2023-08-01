@@ -1,0 +1,114 @@
+.divImputsContainer {
+  position: relative;
+  border-bottom: 2px solid #aaaaaa;
+  /* outline: 1px solid #02A186; */
+  height: 32px;
+  width: 100%;
+  background: #44a5a015;
+  display: flex;
+}
+
+.spanInputs {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  color: #aaaaaa;
+  pointer-events: none;
+  height: 100%;
+  width: 100%;
+  text-indent: 5px;
+  top: 0px;
+}
+
+.inputs {
+  outline: none;
+  border: none;
+  padding: 0;
+  background: transparent;
+  height: 34px;
+  width: 100%;
+  text-indent: 5px;
+  color: #555555;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+.spanPlaceholderElevate {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  pointer-events: none;
+  height: 100%;
+  width: 100%;
+  text-indent: 5px;
+
+  top: -27px; 
+  color: #4affb49a;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: all 0.5s;
+  background: transparent;
+}
+
+.spanPlaceholder {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  pointer-events: none;
+  height: 100%;
+  width: 100%;
+  text-indent: 5px;
+  top: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #aaaaaa;
+
+  background: transparent;
+  transition: all 0.5s;
+}
+
+.buttonVerPass {
+  background: none;
+  border: none;
+  height: 23px;
+  padding: 0;
+  margin-top: 5px;
+  cursor: pointer;
+  margin-right: 7px;
+  width: 23px;
+}
+
+.spanInputs::before {
+  margin-top: 33px;
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  transition: all 0.5s;
+  background: -webkit-linear-gradient(left, #0EEDC8, #02A186);
+}
+
+.inputs:focus + .spanInputs::before {
+  width: 100%;
+}
+
+/* esta combinacion mueve el span hacia arriba con una animación */
+/* .divImputsContainer .inputs:focus + .spanInputs + .spanPlaceholder,
+.divImputsContainer .inputs:valid + .spanInputs + .spanPlaceholder {
+  top: -27px; 
+  color: #4affb49a;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: all 0.5s;
+  background: transparent;
+} */
+
+/* Animación al perder el foco o estar vacío */
+/* .divImputsContainer .inputs:not(:focus):invalid + .spanInputs + .spanPlaceholder {
+  top: 0;
+  height: 100%;
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: all 0.5s;
+  background: transparent;
+  color: #aaaaaa;
+} */

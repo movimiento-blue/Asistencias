@@ -1,1 +1,1 @@
-//archivo para redux stado global
+// archivo para redux stado global

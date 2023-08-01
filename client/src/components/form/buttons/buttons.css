@@ -1,0 +1,41 @@
+.divButtonsContainer {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  border-radius: 20px;
+}
+
+.divBackgroundButtons {
+  position: absolute;
+  width: 300%;
+  height: 100%;
+  background: -webkit-linear-gradient(right, #FFD130, #B3952B, #FFD130, #B3952B);
+  left: -100%;
+  transition: all 0.5s;
+  border-radius: 20px;
+}
+
+.buttons {
+  font: 20px Arial;
+  width: 100%;
+  height: 40px;
+  position: relative;
+  color: rgb(255, 255, 255);
+  text-transform: uppercase;
+  margin: 0px;
+  padding: 0px;
+  background: transparent;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* cuando se hace click en el bonton(container) se crear una sombra */
+.divButtonsContainer:active {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* esto mueve el "divBackgroundButtons" de izquierda a derecha */
+.divButtonsContainer:hover .divBackgroundButtons {
+  left: 0;
+}
