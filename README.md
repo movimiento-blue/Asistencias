@@ -22,5 +22,8 @@ const response = await fetch(`http://localhost:8080/api/students?id=1&apellido=a
 - **DELETE: api/attendance?id=12** Se pasa id de estudiatnte y se borra la asistencia del dia actual.
 - **PUT: api/attendance** Se pasa un objeto {inasistenciaId: "12", estado: "Justificada"} y se modifica el registro de inasistencias, si el estado es "Borrar" se borra el registro. estados = ['Ausente', 'Justificada', 'Tarde', 'Borrar'].
 
+### USUARIOS
+- **POST: api/users/login** recibe un body {username: "Arnaldo123", clave: "123"} y devuelve un jwt que se debe incluir en el headers de las peticiones `headers: { Autorization': 'Bearer ${JWT recibido en el login}'` 
+
 
 # App celulares
