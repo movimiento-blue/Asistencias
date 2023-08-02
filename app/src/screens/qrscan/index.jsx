@@ -1,14 +1,14 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Image } from "react-native";
 
 import Logo from "../../../assets/logo.png";
 
-import { Head, QRScanner } from "../../components";
+import { QRScanner } from "../../components";
 import { COLORS } from "../../constants";
 import { styles } from "./styles";
-//import { Ionicons } from "@expo/vector-icons";
 
-const Home = ({ navigation }) => {
+
+const Qrscan = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
@@ -24,4 +24,4 @@ const Home = ({ navigation }) => {
   );
 };
 
-export default Home;
+export default Qrscan;

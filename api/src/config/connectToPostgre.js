@@ -21,7 +21,7 @@ export const client = new Client({
   }
 })
 
-let isConected
+let isConected = false
 
 export const connectToDb = async () => {
   if (!isConected) { // Esta logica es para evitar varias conexiones simultaneas

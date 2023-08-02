@@ -1,18 +1,17 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Home } from "../../screens/index";
-import { COLORS } from "../../constants/index";
+import { Qrscan } from "../../screens/index";
 
 const Stack = createNativeStackNavigator();
 
-const HomeNavigator = () => {
+const QrscanNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="Qrscan"
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Qrscan" component={Qrscan} />
     </Stack.Navigator>
   );
 };
-export default HomeNavigator;
+export default QrscanNavigator;

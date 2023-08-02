@@ -66,7 +66,7 @@ usersRouter.post(
       const result = await loginUserController(req.body)
       if (result) {
         const jwToken = generateJwtToken(req.body.username)
-        return res.status(200).json({ token: jwToken })
+        return res.status(200).json({ username: req.body.username, token: jwToken })
       }
       return res.status(404).json({ msg: 'Usuario no encontrado.' })
     } catch (error) {
