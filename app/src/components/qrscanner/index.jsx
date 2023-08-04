@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { Audio } from 'expo-av';
 
@@ -18,7 +18,7 @@ const loadSound = async (soundFile) => {
   }
 };
 
-const QRScanner = () => {
+const QRScanner = ({ token }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -43,32 +43,42 @@ const QRScanner = () => {
   const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
     console.log(`Bar code with type ${type} and data ${data} has been scanned!`);
-    try {
-      const response = await fetch(`${SERVICES.urlServer}/api/attendance?id=${data}`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-      });
-      const jsonResponse = await response.json();
-      if (jsonResponse.msg === 'asistencia registrada.') {
-        if (okSound) {
-          await okSound.replayAsync();
-        }
-      } else {
-        if (badSound) {
-          await badSound.replayAsync();
-        }
-      }
+    if(!token) {
       setShowModal(true);
-      setText(`${jsonResponse.nombre} ${jsonResponse.apellido}, ${jsonResponse.msg}`);
+      setText(`Debe iniciar sesión para ver leer el código QR.`);
       setTimeout(() => {
         setScanned(false);
         setShowModal(false);
       }, 3000);
-    } catch (error) {
-      console.error('Error al llamar a la API:', error);
+    } else {
+      try {
+        const response = await fetch(`${SERVICES.urlServer}/api/attendance?id=${data}`, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Autorization: `Bearer ${token}`            
+          },
+        });
+        const jsonResponse = await response.json();
+        if (jsonResponse.msg === 'asistencia registrada.') {
+          if (okSound) {
+            await okSound.replayAsync();
+          }
+        } else {
+          if (badSound) {
+            await badSound.replayAsync();
+          }
+        }
+        setShowModal(true);
+        setText(`${jsonResponse.nombre} ${jsonResponse.apellido}, ${jsonResponse.msg}`);
+        setTimeout(() => {
+          setScanned(false);
+          setShowModal(false);
+        }, 3000);
+      } catch (error) {
+        console.error('Error al llamar a la API:', error);
+      }
     }
   };
 

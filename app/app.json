@@ -3,6 +3,7 @@
     "name": "asistencias",
     "slug": "asistencias",
     "version": "1.0.0",
+    "platforms": ["android"],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -25,6 +26,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "63c2b8d5-f8f4-4241-9be6-188943408a5e"
+      }
+    },
+    "owner": "taber76"
   }
 }
