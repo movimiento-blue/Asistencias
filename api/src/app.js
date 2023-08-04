@@ -4,7 +4,7 @@ import http from 'http'
 import cors from 'cors'
 import cluster from 'cluster'
 import path from 'path'
-import cron, { schedule } from 'node-cron'
+import cron from 'node-cron'
 import { useTreblle } from 'treblle'
 
 // ----------------- Own modules import

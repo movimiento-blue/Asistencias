@@ -7,7 +7,7 @@ import { getData, storeData } from "../../store/storage";
 import { ButtonText, InputText, BadgeText, Modal } from "../../components";
 
 import Logo from "../../../assets/logo.png";
-import { COLORS } from "../../constants";
+import { COLORS, SERVICES } from "../../constants";
 import { styles } from "./styles";
 
 
@@ -34,7 +34,7 @@ const Login = ({ navigation }) => {
     }, []);
 
   const handleLogin = async () => {
-    response = await fetch('http://192.168.1.11:8080/api/users/login', {
+    response = await fetch(`${SERVICES.urlServer}/api/users/login`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

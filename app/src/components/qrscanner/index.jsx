@@ -3,12 +3,9 @@ import { View, Text, StyleSheet, Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { Audio } from 'expo-av';
 
-import { COLORS } from "../../constants";
+import { COLORS, SERVICES } from "../../constants";
 import Modal from '../modal';
-
 import { styles } from './styles';
-
-const API_URL = 'http://192.168.1.14:8080/attendance';
 
 const loadSound = async (soundFile) => {
   try {
@@ -20,7 +17,6 @@ const loadSound = async (soundFile) => {
     return null;
   }
 };
-
 
 const QRScanner = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -48,7 +44,7 @@ const QRScanner = () => {
     setScanned(true);
     console.log(`Bar code with type ${type} and data ${data} has been scanned!`);
     try {
-      const response = await fetch(`${API_URL}?id=${data}`, {
+      const response = await fetch(`${SERVICES.urlServer}/api/attendance?id=${data}`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
