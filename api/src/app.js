@@ -61,7 +61,7 @@ const startCluster = () => {
   if (cluster.isPrimary) {
     console.log('Server in CLUSTER mode')
     console.log('----------------------')
-    scheduledTasks()
+    // scheduledTasks() -> vercel.json
     for (let i = 0; i < ncores; i++) {
       cluster.fork()
     }
@@ -119,6 +119,6 @@ const PORT = (config.port) ? config.port : 8081
 if (config.mode === 'CLUSTER') {
   startCluster()
 } else {
-  scheduledTasks()
+  // scheduledTasks() -> vercel.json
   startFork()
 }
