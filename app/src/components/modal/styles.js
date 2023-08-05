@@ -1,9 +1,8 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS } from "../../constants/index";
-
 export const styles = StyleSheet.create({
   container: {
+    zIndex: 100,
     position: "absolute",
     top: 0,
     bottom: 0,
@@ -15,12 +14,12 @@ export const styles = StyleSheet.create({
   modal: {
     marginTop: 20,
     borderRadius: 12,
-    borderWidth: 1,
+    borderWidth: 0,
     justifyContent: "center",
     alignItems: "center",
   },
   modalText: {
-    fontSize: 18,
+    fontSize: 20,
     textAlign: "center",
     paddingHorizontal: 20,
     paddingVertical: 10,

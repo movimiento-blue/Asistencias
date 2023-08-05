@@ -1,21 +1,18 @@
-import React, { useState } from "react";
-
+import React from "react";
 import { View, TextInput, TouchableOpacity } from "react-native";
-
 import { styles } from "./styles";
 
-const InputText = ({ text, width, color, textColor, height, margin }) => {
-  const [searchText, setSearchText] = useState("");
-
+const InputText = ({ text, width, color, textColor, height, margin, value, onChangeText, secureTextEntry }) => {
   return (
-    <View style={[styles.container, { width: width, height: height, margin: margin, backgroundColor: color }]}>
+    <TouchableOpacity style={[styles.container, { width: width, height: height, margin: margin, backgroundColor: color }]}>
       <TextInput
         style={[styles.input, { color: textColor }]}
         placeholder={text}
-        value={searchText}
-        onChangeText={setSearchText}
+        value={value}
+        onChangeText={onChangeText}
+        secureTextEntry={secureTextEntry}
       />
-    </View>
+    </TouchableOpacity>
   );
 };
 

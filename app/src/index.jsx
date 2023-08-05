@@ -1,8 +1,8 @@
 import { ActivityIndicator, View } from "react-native";
 import { useFonts } from "expo-font";
-//import { Provider } from "react-redux";
+import { Provider } from "react-redux";
 
-//import { store } from "./store/index";
+import store from "./store/store";
 
 import AppNavigator from "./navigation";
 import { styles } from "./styles";
@@ -34,8 +34,8 @@ export default function App() {
     );
   }
   return (
-//    <Provider store={store}>
+    <Provider store={store}>
       <AppNavigator />
- //   </Provider>
+    </Provider>
   );
 }

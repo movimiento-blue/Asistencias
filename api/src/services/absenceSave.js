@@ -1,6 +1,6 @@
 import { client, connectToDb } from '../config/connectToPostgre.js'
 
-export const abscenceSave = async () => {
+const abscenceSave = async () => {
   console.log('Actualizando inasistencias en la base de datos...')
   try {
     await connectToDb()
@@ -58,3 +58,5 @@ export const abscenceSave = async () => {
   }
   console.log('Inasistencias actualizadas')
 }
+
+export default abscenceSave

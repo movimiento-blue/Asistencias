@@ -1,19 +1,44 @@
 import { Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import HomeIcon from "../../../assets/icons/iconoqr.png";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/store";
+import { getData } from "../../store/storage";
+
+import QrscanIcon from "../../../assets/icons/iconoqr.png";
 import LoginIcon from "../../../assets/icons/iconoperfil.png";
 
-import HomeNavigator from "../home";
+import QrscanNavigator from "../qrscan";
 import LoginNavigator from "../login";
 import { COLORS } from "../../constants";
+import { useEffect, useState } from "react";
 
 const BottomTab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
+  const [loggedUser, setLoggedUser] = useState(false);
+  const dispatch = useDispatch();
+  let initialRoute = "LoginTab"
+
+  useEffect(() => {
+    const getUserData = async () => {
+      token = await getData("token");
+      username = await getData("username");   
+      if ( token && username ) {
+        dispatch(setUser({ token, username }));
+        setLoggedUser(true);
+        initialRoute = "QrscanTab";
+      } else {
+        setLoggedUser(false);
+      }
+    }
+    getUserData();
+  }, []);
+ 
+ 
   return (
     <BottomTab.Navigator
-      initialRouteName="HomeTab"
+      initialRouteName={initialRoute}
       screenOptions={{
         headerShown: false,
         tabBarLabelStyle: {
@@ -27,14 +52,15 @@ const BottomTabNavigator = () => {
         },
       }}>
       <BottomTab.Screen
-        name="HomeTab"
-        component={HomeNavigator}
+        name="QrscanTab"
+        component={QrscanNavigator}
         options={{
           tabBarLabel: "QR Scan",
           tabBarIcon: ({ focused, color, size }) => (
-            <Image source={HomeIcon} size={size} color={focused ? color : COLORS.darkGray} />
+            <Image source={QrscanIcon} size={size} color={focused ? color : COLORS.darkGray} />
           ),
         }}
+        unmountOnBlur={!loggedUser}
       />
       <BottomTab.Screen
         name="LoginTab"
@@ -51,3 +77,5 @@ const BottomTabNavigator = () => {
 };
 
 export default BottomTabNavigator;
+
+

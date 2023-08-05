@@ -3,9 +3,9 @@ import minimist from 'minimist'
 
 dotenv.config()
 const parseArgs = minimist(process.argv.slice(2))
-
 export const config = {
-  port: parseArgs.p // puerto escucha
+  port: parseArgs.p, // puerto escucha
+  mode: parseArgs.m // mode 'FORK' (defecto) o 'CLUSTER'
 }
 
 export const staticFiles = process.env.STATICFILES

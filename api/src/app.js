@@ -12,10 +12,7 @@ import { config, staticFiles, ncores, treblleApiKey, treblleProjectId } from './
 import { abscenceSave } from './services/absenceSave.js'
 import studentsRouter from './routes/studentsRouter.js'
 import attendanceRouter from './routes/attendanceRouter.js'
-
-import { generateJwtToken } from './middlewares/auth.js'
-
-const PORT = (config.port) ? config.port : 8080
+import usersRouter from './routes/usersRouter.js'
 
 // ----------------- SERVER DECLARATIONS
 const createServer = () => {
@@ -25,7 +22,6 @@ const createServer = () => {
   app.use(cors())
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
-  app.use('/api/doc', express.static(staticFiles))
 
   // --------------- Treblle Create API DOC
   useTreblle(app, {
@@ -36,6 +32,8 @@ const createServer = () => {
   // --------------- Routes
   app.use('/api', studentsRouter)
   app.use('/api', attendanceRouter)
+  app.use('/api', usersRouter)
+  app.use('/api/doc', express.static(staticFiles))
 
   // --------------- Not found route
   app.get('*', (req, res, next) => {
@@ -50,26 +48,50 @@ const createServer = () => {
   return server
 }
 
-// ----------------- START CLUSTERS (this initializes NCORES servers)
-
-if (cluster.isPrimary) {
-// -------------- generate JWT token para desarrollo
-  console.log('JWT para desarrollo: ', generateJwtToken('username'))
-  console.log('Incluir en el Bearer          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
-
-  console.log('Server in CLUSTER mode')
-  console.log('----------------------')
-
-  // ----------------- Scheluded tasks at 12:00 AM
-  cron.schedule('47 9 * * *', () => {
+// ----------------- SCHEDULED TASKS
+const scheduledTasks = () => {
+  // ----------------- Scheluded tasks at 12:00 AM every day
+  cron.schedule('0 0 * * *', () => {
     abscenceSave()
   })
+}
 
-  for (let i = 0; i < ncores; i++) {
-    cluster.fork()
+// ----------------- START CLUSTERS / FORK
+const startCluster = () => {
+  if (cluster.isPrimary) {
+    console.log('Server in CLUSTER mode')
+    console.log('----------------------')
+    // scheduledTasks() -> vercel.json
+    for (let i = 0; i < ncores; i++) {
+      cluster.fork()
+    }
+  } else {
+    console.log(`Worker ${cluster.worker.id} started`)
+    try {
+      const server = createServer()
+      server.on('error', (error) => {
+        if (error.code === 'EADDRINUSE') {
+          console.error(`ERROR ${cluster.worker.id} - Puerto en uso: ${error.address}:${error.port}`)
+          console.log('Inicie el servidor en otro puerto utilizando el comando: node src/server/server -p <puerto>')
+          console.log('Ejemplo: node src/server/server -p 3000')
+          process.exit(1)
+        } else {
+          console.error(error)
+          throw error
+        }
+      })
+      server.listen(PORT, () => {
+        console.log(`Worker ${cluster.worker.id} listening on port ${PORT}`)
+      })
+    } catch (error) {
+      console.error(`Error starting worker ${cluster.worker.id}: ${error}`)
+    }
   }
-} else {
-  console.log(`Worker ${cluster.worker.id} started`)
+}
+
+const startFork = () => {
+  console.log('FORK mode server started')
+  console.log('------------------------')
   try {
     const server = createServer()
     server.on('error', (error) => {
@@ -84,16 +106,19 @@ if (cluster.isPrimary) {
       }
     })
     server.listen(PORT, () => {
-      console.log(`Worker ${cluster.worker.id} listening on port ${PORT}`)
+      console.log(`Server listening on port ${PORT}`)
     })
   } catch (error) {
-    console.error(`Error starting worker ${cluster.worker.id}: ${error}`)
+    console.error(`Error starting server: ${error}`)
   }
 }
 
-// ----------------- SERVER FORK
-/*
-createServer().listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
-*/
+// ----------------- MAIN
+
+const PORT = (config.port) ? config.port : 8081
+if (config.mode === 'CLUSTER') {
+  startCluster()
+} else {
+  // scheduledTasks() -> vercel.json
+  startFork()
+}
