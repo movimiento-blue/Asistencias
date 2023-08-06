@@ -13,7 +13,6 @@ import { config, staticFiles, ncores, treblleApiKey, treblleProjectId } from './
 import studentsRouter from './routes/students.router.js'
 import attendanceRouter from './routes/attendance.router.js'
 import usersRouter from './routes/users.router.js'
-import servicesRouter from './routes/services.router.js'
 
 // ----------------- SERVER DECLARATIONS
 const createServer = () => {
@@ -34,7 +33,6 @@ const createServer = () => {
   app.use('/api', studentsRouter)
   app.use('/api', attendanceRouter)
   app.use('/api', usersRouter)
-  app.use('/api', servicesRouter)
   app.use('/api/doc', express.static(staticFiles))
 
   // --------------- Not found route

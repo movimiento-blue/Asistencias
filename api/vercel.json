@@ -5,5 +5,11 @@
   ],
   "routes": [
     { "src": "/(.*)", "dest": "src/app.js" }
+  ],
+  "crons": [
+    {
+      "path": "/src/services/cron",
+      "scheluder": "* * * * *"
+    }
   ]
 }
