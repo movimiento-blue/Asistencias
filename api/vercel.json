@@ -5,12 +5,5 @@
   ],
   "routes": [
     { "src": "/(.*)", "dest": "src/app.js" }
-  ],
-  "public": true,
-  "crons": [
-    {
-    "path": "api/services/crons",
-    "schedule": "0 0 * * *"
-    }
   ]
 }
