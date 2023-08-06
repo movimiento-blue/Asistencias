@@ -6,8 +6,11 @@
   "routes": [
     { "src": "/(.*)", "dest": "src/app.js" }
   ],
-  "crons": [{
-    "path": "src/services/absence.js",
-    "schedule": "0 10 * * *"
-    }]
+  "public": true,
+  "crons": [
+    {
+    "path": "api/services/crons",
+    "schedule": "0 0 * * *"
+    }
+  ]
 }
