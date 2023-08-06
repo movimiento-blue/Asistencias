@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS estudiantes (
 )`
 
 const createTableInasistencias = `
-CREATE TABLE IF NOT EXISTS inaisistencias (
+CREATE TABLE IF NOT EXISTS inasistencias (
   id SERIAL PRIMARY KEY,
   fecha TIMESTAMP NOT NULL,
   estado VARCHAR(45) NOT NULL,

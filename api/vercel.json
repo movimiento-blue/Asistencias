@@ -4,12 +4,7 @@
     { "src": "src/app.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "src/app.js" }
-  ],
-  "crons": [
-    {
-      "path": "/src/services/cron",
-      "scheluder": "* * * * *"
-    }
+    { "src": "/(.*)", "dest": "src/app.js" },
+    { "src": "/cron", "method": "GET", "dest": "src/services/cron.js" }
   ]
 }
