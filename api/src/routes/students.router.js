@@ -4,7 +4,7 @@ import {
   addStudentController,
   updateStudentController,
   deleteStudentController
-} from '../controllers/studentsController.js'
+} from '../controllers/students.controller.js'
 import passport from '../middlewares/auth.js'
 
 const studentsRouter = Router()

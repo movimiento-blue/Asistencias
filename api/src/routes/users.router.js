@@ -4,7 +4,7 @@ import {
   addUserController,
   modifyUserController,
   loginUserController
-} from '../controllers/usersController.js'
+} from '../controllers/users.controller.js'
 import passport, { generateJwtToken } from '../middlewares/auth.js'
 
 const usersRouter = Router()

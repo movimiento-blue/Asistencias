@@ -1,6 +1,6 @@
 import { client, connectToDb } from '../config/connectToPostgre.js'
 
-class PostgreAttendanceHelper {
+class PostgreAttendanceDao {
   async add (estudianteId) { // Registro de asistencia del estudiante estudianteId
     try {
       await connectToDb()
@@ -59,4 +59,4 @@ class PostgreAttendanceHelper {
   }
 }
 
-export const postgreAttendanceHelper = new PostgreAttendanceHelper()
+export const postgreAttendanceDao = new PostgreAttendanceDao()

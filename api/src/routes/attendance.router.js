@@ -6,11 +6,11 @@ import {
   addAttendanceController,
   deleteAttendanceController,
   updateAttendanceController
-} from '../controllers/attendanceController.js'
+} from '../controllers/attendance.controller.js'
 
 import {
   getStudentsController
-} from '../controllers/studentsController.js'
+} from '../controllers/students.controller.js'
 
 const attendanceRouter = Router()
 

@@ -1,6 +1,6 @@
 import { client, connectToDb } from '../config/connectToPostgre.js'
 
-class PosgreUserDto {
+class PosgreUserDao {
   async getAll () {
     try {
       await connectToDb()
@@ -61,4 +61,4 @@ class PosgreUserDto {
   }
 }
 
-export const postgreUserHelper = new PosgreUserDto()
+export const postgreUserDao = new PosgreUserDao()

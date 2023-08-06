@@ -2,7 +2,7 @@ import passport from 'passport'
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
 import jwt from 'jsonwebtoken'
 
-import { postgreUserHelper } from '../helpers/postgreUsers.helper.js'
+import { postgreUserDao } from '../dao/postgreUsers.dao.js'
 
 const jwtsecretkey = 'llavesecreta'
 
@@ -15,7 +15,7 @@ passport.use(
     },
     async (payload, done) => {
       try {
-        const response = await postgreUserHelper.getByUsername(payload.username)
+        const response = await postgreUserDao.getByUsername(payload.username)
         if (response.length > 0) {
           // en req.user puedo obtener el username luego de este middleware
           return done(null, response[0].username)

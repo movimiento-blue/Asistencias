@@ -1,12 +1,12 @@
-import { postgreAttendanceHelper } from '../helpers/postgreAttendance.helper.js'
-import { postgreStudentHelper } from '../helpers/postgreStudent.helper.js'
-import { validateAttendanceUpdate } from './validationFunctions.js'
+import { postgreAttendanceDao } from '../dao/postgreAttendance.dao.js'
+import { postgreStudentDao } from '../dao/postgreStudent.dao.js'
+import { validateAttendanceUpdate } from '../helpers/validationFunctions.js'
 
 export const addAttendanceController = async (estudianteId) => {
   try {
-    const studentActive = await postgreStudentHelper.isActive(estudianteId)
+    const studentActive = await postgreStudentDao.isActive(estudianteId)
     if (studentActive) {
-      const result = await postgreAttendanceHelper.add(estudianteId)
+      const result = await postgreAttendanceDao.add(estudianteId)
       return result
     }
     console.error('El estudiante no esta activo')
@@ -18,7 +18,7 @@ export const addAttendanceController = async (estudianteId) => {
 
 export const deleteAttendanceController = async (estudianteId) => {
   try {
-    const result = await postgreAttendanceHelper.delete(estudianteId)
+    const result = await postgreAttendanceDao.delete(estudianteId)
     return result
   } catch (error) {
     console.error('Error al eliminar el estudiante:', error)
@@ -29,10 +29,10 @@ export const updateAttendanceController = async (data) => {
   try {
     if (validateAttendanceUpdate(data)) {
       if (data.estado === 'Borrar') {
-        const result = await postgreAttendanceHelper.deleteInasistencia(data.inasistenciaId)
+        const result = await postgreAttendanceDao.deleteInasistencia(data.inasistenciaId)
         return result
       } else {
-        const result = await postgreAttendanceHelper.modify(data)
+        const result = await postgreAttendanceDao.modify(data)
         return result
       }
     }

@@ -4,15 +4,15 @@ import http from 'http'
 import cors from 'cors'
 import cluster from 'cluster'
 import path from 'path'
-import cron from 'node-cron'
+// import cron from 'node-cron'
 import { useTreblle } from 'treblle'
 
 // ----------------- Own modules import
 import { config, staticFiles, ncores, treblleApiKey, treblleProjectId } from './config/environment.js'
-import { abscenceSave } from './services/absenceSave.js'
-import studentsRouter from './routes/studentsRouter.js'
-import attendanceRouter from './routes/attendanceRouter.js'
-import usersRouter from './routes/usersRouter.js'
+// import { abscenceSave } from './services/absenceSave.js'
+import studentsRouter from './routes/students.router.js'
+import attendanceRouter from './routes/attendance.router.js'
+import usersRouter from './routes/users.router.js'
 
 // ----------------- SERVER DECLARATIONS
 const createServer = () => {
@@ -49,13 +49,14 @@ const createServer = () => {
 }
 
 // ----------------- SCHEDULED TASKS
+/*
 const scheduledTasks = () => {
   // ----------------- Scheluded tasks at 12:00 AM every day
   cron.schedule('0 0 * * *', () => {
     abscenceSave()
   })
 }
-
+*/
 // ----------------- START CLUSTERS / FORK
 const startCluster = () => {
   if (cluster.isPrimary) {
@@ -114,8 +115,7 @@ const startFork = () => {
 }
 
 // ----------------- MAIN
-
-const PORT = (config.port) ? config.port : 8081
+const PORT = (config.port) ? config.port : 8080
 if (config.mode === 'CLUSTER') {
   startCluster()
 } else {
